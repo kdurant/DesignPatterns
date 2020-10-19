@@ -2,15 +2,22 @@
 #include "concrete_observer.h"
 
 #ifndef SAFE_DELETE
-#define SAFE_DELETE(p) { if(p){delete(p); (p)=NULL;} }
+#define SAFE_DELETE(p)  \
+    {                   \
+        if(p)           \
+        {               \
+            delete(p);  \
+            (p) = NULL; \
+        }               \
+    }
 #endif
 
 int main()
 {
     // 创建主题、观察者
-    ConcreteSubject *pSubject = new ConcreteSubject();
-    IObserver *pObserver1 = new ConcreteObserver("Jack Ma");
-    IObserver *pObserver2 = new ConcreteObserver("Pony");
+    ConcreteSubject *pSubject   = new ConcreteSubject();
+    IObserver *      pObserver1 = new ConcreteObserver("Jack Ma");
+    IObserver *      pObserver2 = new ConcreteObserver("Pony");
 
     // 注册观察者
     pSubject->Attach(pObserver1);
@@ -29,8 +36,6 @@ int main()
     SAFE_DELETE(pObserver1);
     SAFE_DELETE(pObserver2);
     SAFE_DELETE(pSubject);
-
-    getchar();
 
     return 0;
 }
